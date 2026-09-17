@@ -1,0 +1,10 @@
+{
+  "name": "@controle/whatsapp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "baileys": "7.0.0-rc14",
+    "qrcode": "1.5.4"
+  }
+}

@@ -1,0 +1,16 @@
+CREATE TABLE employees(id TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT NOT NULL CHECK(role IN ('admin','manager','employee')), password_hash TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1);
+CREATE TABLE capabilities(employee_id TEXT NOT NULL REFERENCES employees(id), kind TEXT NOT NULL, PRIMARY KEY(employee_id,kind));
+CREATE TABLE projects(id TEXT PRIMARY KEY, name TEXT NOT NULL, revision INTEGER NOT NULL DEFAULT 0, summary TEXT NOT NULL DEFAULT '', summary_revision INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE project_members(project_id TEXT NOT NULL REFERENCES projects(id), employee_id TEXT NOT NULL REFERENCES employees(id), PRIMARY KEY(project_id,employee_id));
+CREATE TABLE messages(id TEXT PRIMARY KEY, account_id TEXT NOT NULL, external_id TEXT NOT NULL, project_id TEXT NOT NULL REFERENCES projects(id), conversation_id TEXT NOT NULL, sender_id TEXT NOT NULL, direction TEXT NOT NULL CHECK(direction IN ('incoming','outgoing')), text TEXT NOT NULL, sent_at TEXT NOT NULL, received_at TEXT NOT NULL, source TEXT NOT NULL CHECK(source IN ('live','import')), UNIQUE(account_id,conversation_id,external_id));
+CREATE TABLE tasks(id TEXT PRIMARY KEY, project_id TEXT NOT NULL REFERENCES projects(id), request_key TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL, kind TEXT NOT NULL, priority TEXT NOT NULL, assignee_id TEXT REFERENCES employees(id), status TEXT NOT NULL DEFAULT 'open' CHECK(status IN ('open','in_progress','blocked','done','cancelled')), version INTEGER NOT NULL DEFAULT 1, review_required INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL, acknowledge_by TEXT NOT NULL, due_at TEXT, result TEXT, block_reason TEXT);
+CREATE UNIQUE INDEX one_open_request ON tasks(project_id,request_key) WHERE status IN ('open','in_progress','blocked');
+CREATE INDEX task_assignee_status ON tasks(assignee_id,status);
+CREATE TABLE task_evidence(task_id TEXT NOT NULL REFERENCES tasks(id), message_id TEXT NOT NULL REFERENCES messages(id), PRIMARY KEY(task_id,message_id));
+CREATE TABLE notifications(id TEXT PRIMARY KEY, employee_id TEXT NOT NULL REFERENCES employees(id), task_id TEXT NOT NULL REFERENCES tasks(id), kind TEXT NOT NULL, created_at TEXT NOT NULL, read_at TEXT, UNIQUE(employee_id,task_id,kind));
+CREATE TABLE events(id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT NOT NULL, payload TEXT NOT NULL, created_at TEXT NOT NULL, processed_at TEXT);
+CREATE TABLE audit_logs(id INTEGER PRIMARY KEY AUTOINCREMENT, actor_id TEXT NOT NULL, action TEXT NOT NULL, entity_id TEXT NOT NULL, payload TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TRIGGER audit_no_update BEFORE UPDATE ON audit_logs BEGIN SELECT RAISE(ABORT,'audit is append-only'); END;
+CREATE TRIGGER audit_no_delete BEFORE DELETE ON audit_logs BEGIN SELECT RAISE(ABORT,'audit is append-only'); END;
+CREATE TABLE jobs(id TEXT PRIMARY KEY, dedupe_key TEXT NOT NULL UNIQUE, kind TEXT NOT NULL, payload TEXT NOT NULL, state TEXT NOT NULL CHECK(state IN ('pending','running','succeeded','retry_wait','waiting_capacity','failed','cancelled')), attempts INTEGER NOT NULL DEFAULT 0, available_at TEXT NOT NULL, lease_until TEXT, lease_token TEXT, error_code TEXT);
+CREATE INDEX jobs_available ON jobs(state,available_at);

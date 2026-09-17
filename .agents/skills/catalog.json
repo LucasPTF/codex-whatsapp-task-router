@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "id": "analisar-conversa-whatsapp",
+      "version": "1.5.0",
+      "schema": "schemas/conversation-analysis.schema.json",
+      "sha256": "aa9268f16c59d806536fb3d0d253f8a521e7c99d6016230ac1d20ee1c1de93ad",
+      "enabled": true,
+      "mode": "manual",
+      "state": "pilot_real_cli_human_review",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "gerar-funis",
+      "version": "1.0.0",
+      "schema": "schemas/funnel-generation.schema.json",
+      "sha256": "97f3376caea6558e9abd2984a99fa82b021a3c75201f2b6ed922e8a7e4c441b7",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "identificar-funil-escolhido",
+      "version": "1.0.0",
+      "schema": "schemas/funnel-selection.schema.json",
+      "sha256": "83769a1e6a885900e5e6a6c3ea5c84d8e0de0fe4d39a7f7dfacd02a7ca608a64",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "gerar-copy",
+      "version": "1.0.0",
+      "schema": "schemas/production-content.schema.json",
+      "sha256": "da7605e7ad0350e1b0c14c80c55ca5827052d911fb504cf0261ec62154736cba",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "gerar-criativos-estaticos",
+      "version": "1.0.0",
+      "schema": "schemas/production-content.schema.json",
+      "sha256": "261ccfec947d6dfa217bb5652b6725b5e25e7ce3307d18a277a47747f0c28e1c",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "descrever-criativos",
+      "version": "1.0.0",
+      "schema": "schemas/production-content.schema.json",
+      "sha256": "698db0b81e520a322b3d4e79ee587a9a813bd9d00a61aee0c958b87faadbe24b",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "gerar-roteiros",
+      "version": "1.0.0",
+      "schema": "schemas/production-content.schema.json",
+      "sha256": "596fb303e83981e9e3941670c67490ee234722c0ad23c394f0916688898a9706",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    },
+    {
+      "id": "validar-pacote-marketing",
+      "version": "1.0.0",
+      "schema": "schemas/production-content.schema.json",
+      "sha256": "98d686ff52328861beaf24b7a684c139dffc18c005ed72dcad0ef15700528b95",
+      "enabled": false,
+      "mode": "manual",
+      "state": "draft_not_evaluated",
+      "scriptsAllowed": false
+    }
+  ]
+}

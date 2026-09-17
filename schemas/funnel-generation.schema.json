@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectId",
+    "projectRevision",
+    "status",
+    "missingInformation",
+    "evidenceIds",
+    "optionSetId",
+    "briefingVersion",
+    "options",
+    "recommendedOptionId",
+    "recommendationReason"
+  ],
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "blocked",
+        "needs_review"
+      ]
+    },
+    "missingInformation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "optionSetId": {
+      "type": "string"
+    },
+    "briefingVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "logic",
+          "stages",
+          "assumptions",
+          "tradeoffs"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "logic": {
+            "type": "string"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "assumptions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tradeoffs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "maxItems": 5
+    },
+    "recommendedOptionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recommendationReason": {
+      "type": "string"
+    }
+  }
+}

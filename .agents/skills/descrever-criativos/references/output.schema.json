@@ -1,0 +1,202 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectId",
+    "projectRevision",
+    "status",
+    "missingInformation",
+    "evidenceIds",
+    "kind",
+    "briefingVersion",
+    "funnelSelectionVersion",
+    "sections",
+    "creatives",
+    "scripts",
+    "claimsToVerify",
+    "issues"
+  ],
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "blocked",
+        "needs_review"
+      ]
+    },
+    "missingInformation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "kind": {
+      "enum": [
+        "copy",
+        "creatives",
+        "visual_descriptions",
+        "scripts",
+        "consistency_review"
+      ]
+    },
+    "briefingVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "funnelSelectionVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "body"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "creatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "angle",
+          "audienceHypothesis",
+          "headline",
+          "body",
+          "cta",
+          "visualDirection",
+          "restrictions"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "angle": {
+            "type": "string"
+          },
+          "audienceHypothesis": {
+            "type": "string"
+          },
+          "headline": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "string"
+          },
+          "visualDirection": {
+            "type": "string"
+          },
+          "restrictions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "maxItems": 12
+    },
+    "scripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "hook",
+          "spokenText",
+          "recordingDirections",
+          "cta"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "hook": {
+            "type": "string"
+          },
+          "spokenText": {
+            "type": "string"
+          },
+          "recordingDirections": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "claimsToVerify": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "artifactId",
+          "description"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "blocking",
+              "warning"
+            ]
+          },
+          "artifactId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "projectId",
+    "projectRevision",
+    "status",
+    "missingInformation",
+    "evidenceIds",
+    "optionSetId",
+    "optionSetVersion",
+    "selectedOptionId",
+    "participantId",
+    "reason"
+  ],
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectRevision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "blocked",
+        "needs_review"
+      ]
+    },
+    "missingInformation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "optionSetId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "optionSetVersion": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "selectedOptionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "participantId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    }
+  }
+}
